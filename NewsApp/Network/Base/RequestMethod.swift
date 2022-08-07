@@ -5,6 +5,6 @@
 //  Created by d.c.venkatachalam on 05/08/22.
 //
 
-enum RequestMethod: String {
+public enum RequestMethod: String {
     case get = "GET"
 }

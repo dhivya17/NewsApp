@@ -7,7 +7,7 @@
 
 import UIKit
 
-class NewsTableViewCell: UITableViewCell {
+final class NewsTableViewCell: UITableViewCell {
     public static let cellId = "NewsTableViewCell"
     public let titleLabel = UILabel()
     public let descriptionLabel = UILabel()

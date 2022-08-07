@@ -5,7 +5,7 @@
 //  Created by d.c.venkatachalam on 05/08/22.
 //
 
-protocol Endpoint {
+public protocol Endpoint {
     var scheme: String { get }
     var host: String { get }
     var path: String { get }

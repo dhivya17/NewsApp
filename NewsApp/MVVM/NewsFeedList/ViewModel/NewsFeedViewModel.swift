@@ -7,11 +7,21 @@
 
 import Foundation
 
-class NewsFeedViewModel {
+protocol NewsFeedViewModelProtocol {
+    var networkManager: NewsDataServiceProtocol { get }
+}
+
+final class NewsFeedViewModel: NewsFeedViewModelProtocol {
+    var networkManager: NewsDataServiceProtocol
+    
     var newsFeed: ((NewsFeed) -> Void)?
     var showActivityIndicator: ((Bool) -> Void)?
     var refreshControlCallback: ((Bool) -> Void)?
     private var refreshing = false
+    
+    init() {
+        networkManager = NewsDataService()
+    }
     
     func fetchNewsApi()  {
         fetchData { [weak self] result in
@@ -43,7 +53,7 @@ class NewsFeedViewModel {
     
     private func fetchData(completion: @escaping (Result<NewsFeed, NetworkError>) -> Void) {
         Task(priority: .userInitiated) {
-            let result = await NewsDataService().getNewsFeed(page: 1)
+            let result = await networkManager.getNewsFeed(page: 1)
             completion(result)
         }
     }

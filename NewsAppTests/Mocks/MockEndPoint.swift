@@ -1,41 +1,46 @@
 //
-//  NewsEndPoint.swift
-//  NewsApp
+//  MockEndPoint.swift
+//  NewsAppTests
 //
-//  Created by d.c.venkatachalam on 05/08/22.
+//  Created by d.c.venkatachalam on 07/08/22.
 //
 
 import Foundation
+import NewsApp
 
-enum NewsEndPoint {
-    case topfeeds(page: Int)
+enum MockEndPoint {
+    case invalidUrl
+    case unauthorised
+    case badStatuscode
 }
 
-extension NewsEndPoint: Endpoint {
+extension MockEndPoint: Endpoint {
+    var scheme: String {
+        return "https"
+    }
+    
+    var host: String {
+        return "newscatcher.p.rapidapi.com"
+    }
+    
     var params: [String : String]? {
         switch self {
-        case .topfeeds(let page):
-            return [
-                "q" : "elon musk",
-                "lang": "en",
-                "sort_by":"relevancy",
-                "page": String(page),
-                "media": "True",
-                "page_size": "20"
-            ]
+        case .invalidUrl, .unauthorised, .badStatuscode: return nil
         }
     }
     
     var path: String {
         switch self {
-        case .topfeeds:
+        case .invalidUrl:
+            return "v1/search_enterprise?$"
+        case .unauthorised, .badStatuscode:
             return "/v1/search_enterprise"
         }
     }
     
     var method: RequestMethod {
         switch self {
-        case .topfeeds:
+        case .invalidUrl, .unauthorised, .badStatuscode:
             return .get
         }
     }
@@ -43,18 +48,19 @@ extension NewsEndPoint: Endpoint {
     var header: [String: String]? {
         let accessToken = "59845cb570msh5fc727eb40864a9p17fa1bjsn66f1e2a33bc6"
         switch self {
-        case .topfeeds:
+        case .invalidUrl, .badStatuscode:
             return [
                 "X-RapidAPI-Key": "\(accessToken)",
                 "Content-Type": "application/json;charset=utf-8",
                 "X-RapidAPI-Host": "newscatcher.p.rapidapi.com"
             ]
+        case .unauthorised: return [:]
         }
     }
     
     var body: [String : String]? {
         switch self {
-        case .topfeeds:
+        case .invalidUrl, .unauthorised, .badStatuscode:
             return nil
         }
     }

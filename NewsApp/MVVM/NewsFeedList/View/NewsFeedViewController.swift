@@ -7,7 +7,7 @@
 
 import UIKit
 
-class NewsFeedViewController: UIViewController {
+final class NewsFeedViewController: UIViewController {
     private var tableView: UITableView!
     private var viewModel: NewsFeedViewModel
     private var activityIndicator: UIActivityIndicatorView!

@@ -20,7 +20,11 @@ enum NetworkError: Error {
         case .decodingError:
             return "Decode error"
         case .unauthorized:
-            return "Session expired"
+            return "Unauthorized"
+        case .invalidURL:
+            return "URL is invalid"
+        case .unexpectedStatusCode:
+            return "Unexpected Status Code"
         default:
             return "Unknown error"
         }
